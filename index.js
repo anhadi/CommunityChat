@@ -19,6 +19,10 @@ app.get('*', (req,res) =>{
 
 io.on('connection', (socket) => {
 	console.log('New user connected: ', socket.id)
+
+	socket.on('disconnect', () => {
+		console.log(`User has left the chat`);
+	})
 })
 
 const port = process.env.PORT || 5000;
