@@ -20,6 +20,16 @@ app.get('*', (req,res) =>{
 io.on('connection', (socket) => {
 	console.log('New user connected: ', socket.id)
 
+	socket.emit('newMessage', {
+		from: 'server',
+		text: 'this is a new message',
+		createdAt: 123
+	});
+
+	socket.on('createMessage', (newMessage) => {
+		console.log('You have a new message:', newMessage)
+	})
+
 	socket.on('disconnect', () => {
 		console.log(`User has left the chat`);
 	})

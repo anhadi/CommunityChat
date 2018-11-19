@@ -18,10 +18,21 @@ export default class Login extends Component {
 
 		socket.on('connect', () => {
 			console.log('Socket is connected!')
+
+			socket.emit('createMessage', {
+				from: 'client',
+				to: 'server',
+				text: 'this is from client',
+				createdAt: 123
+			});
 		})
 
 		socket.on('disconnect', () => {
 			console.log('Disconnected from server!')
+		})
+
+		socket.on('newMessage', (data) => {
+			console.log('New email:', data);
 		})
 
 		this.setState({socket});
