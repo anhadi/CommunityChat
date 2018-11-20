@@ -10,6 +10,16 @@ export default class LoginForm extends Component {
 		}
 	}
 
+	handleVerifyUser = ({error}) => {
+		const { username } = this.state
+		if(error){
+			this.setState({error})
+		} else {
+			this.setState({error})
+			this.props.enterChat(username)
+		}
+	}
+
 	handleChange = (e) => {
 		const username = e.target.value.trim()
 
@@ -22,7 +32,7 @@ export default class LoginForm extends Component {
 		const { socket } = this.props
 		const { username } = this.state
 
-		socket.emit('verifyUser', username)
+		socket.emit('verifyUser', username, this.handleVerifyUser)
  	}
 
 	render(){
@@ -39,6 +49,7 @@ export default class LoginForm extends Component {
 						id='usernameField'
 						onChange={this.handleChange}
 						autoComplete='off'
+						autoFocus={true}
 						/>
 					<div>{error ? error : null }</div>
 					<div>{username}</div>
