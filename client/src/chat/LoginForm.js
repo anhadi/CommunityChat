@@ -11,12 +11,19 @@ export default class LoginForm extends Component {
 	}
 
 	handleChange = (e) => {
-		this.setState({username:e.target.value})
+		const username = e.target.value.trim()
+
+		this.setState({username})
 	}
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-	}
+
+		const { socket } = this.props
+		const { username } = this.state
+
+		socket.emit('verifyUser', username)
+ 	}
 
 	render(){
 		const { username, error } = this.state;
