@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client'
 
+import LoginForm from './LoginForm';
+
 // const socketURL = 'https://vast-headland-39512.herokuapp.com/';
-const socketURL = '172.27.139.88:5000'
+const socketURL = '172.25.64.46:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -43,9 +45,11 @@ export default class Login extends Component {
 	}
 
 	render(){
+		const { socket } = this.state
 		return(
 			<div>
 				<p>This is the Login.js page</p>
+				<LoginForm  socket={socket}/>
 			</div>
 		)
 	}

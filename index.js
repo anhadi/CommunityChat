@@ -4,6 +4,7 @@ const socketIO = require('socket.io');
 const http = require('http'); 
 
 const app = express();
+const SocketManager = require('./SocketManager');
 var server = http.createServer(app);
 var io = socketIO(server)
 
@@ -17,23 +18,7 @@ app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-io.on('connection', (socket) => {
-	console.log('New user connected: ', socket.id)
-
-	socket.emit('newMessage', {
-		from: 'server',
-		text: 'this is a new message',
-		createdAt: 123
-	});
-
-	socket.on('createMessage', (newMessage) => {
-		console.log('You have a new message:', newMessage)
-	})
-
-	socket.on('disconnect', () => {
-		console.log(`User has left the chat`);
-	})
-})
+io.on('connection', SocketManager)
 
 const port = process.env.PORT || 5000;
 
