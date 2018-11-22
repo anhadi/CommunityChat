@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-const socketURL = 'https://vast-headland-39512.herokuapp.com/';
+const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
 // const socketURL = '10.0.0.4:5000'
 
 export default class Login extends Component {
