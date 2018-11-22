@@ -17,7 +17,7 @@ module.exports = function (socket) {
 		if(isUser(userList, username)){
 			console.log('name is already taken')
 			console.log('these are the currently on users', userList)
-			callback({error: 'ERROR: name already taken'});
+			callback({error: 'ERROR: name already taken', userList});
 		} else {
 			console.log('name not in user list')
 			userList.push({
@@ -25,9 +25,14 @@ module.exports = function (socket) {
 				id: socket.id
 			});
 			console.log('these are the currently on users', userList)
-			callback({error: ''});
+			callback({error: '', userList});
 		}
 		
+	})
+
+	socket.on('newUser', (user) => {
+		console.log('***** newUser was emitted succesfully from Login to SocketManager')
+		io.emit('newUserEnterChat', user);
 	})
 
 	socket.on('createMessage', (newMessage) => {

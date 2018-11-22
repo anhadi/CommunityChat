@@ -6,17 +6,18 @@ export default class LoginForm extends Component {
 
 		this.state={
 			username: '',
-			error: ''
+			error: '', 
+			userList: []
 		}
 	}
 
-	handleVerifyUser = ({error}) => {
+	handleVerifyUser = ({error, userList}) => {
 		const { username } = this.state
 		if(error){
 			this.setState({error})
 		} else {
-			this.setState({error})
-			this.props.enterChat(username)
+			this.setState({error,userList})
+			this.props.enterChat(username, userList)
 		}
 	}
 
