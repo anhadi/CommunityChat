@@ -88,12 +88,12 @@ export default class Login extends Component {
 	}
 
 	render(){
-		const { socket,userList,messages, typingMessage } = this.state
+		const { socket,user,userList,messages, typingMessage } = this.state
 		const userTyping = this.userTyping
 		return(
 			<div>
 				<p>This is the Login.js page</p>
-				{ userList.length > 0 ? 
+				{ user ? 
 					<ChatRoom 
 						socket={socket} 
 						userList={userList} 
