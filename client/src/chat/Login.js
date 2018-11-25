@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
-// const socketURL = '10.0.0.4:5000'
+// const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
+const socketURL = '10.0.0.4:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -42,10 +42,23 @@ export default class Login extends Component {
 			console.log('New email:', data);
 		})
 
-		socket.on('newUserEnterChat', (userList) => {
-			console.log('***** newUserEnterChat was emitted succesfully from SocketManager to Login');
-			console.log('please welcome new user')
-			this.setState({userList})
+		socket.on('newUserEnterChat', ({username, userList}) => {
+			const user = username;
+			const messageId = this.state.messages.length
+			const text = user + ' has entered the chat.'
+			const now = new Date();
+			const date = now.toLocaleString();
+
+			const welcomeMessage = {
+				id:messageId,
+				author: 'Admin',
+				date: date,
+				text: text
+			}
+			const {messages} = this.state
+			messages.push(welcomeMessage);
+
+			this.setState({userList, messages})
 		})
 
 		socket.on('userLeftChat', (userList) => {

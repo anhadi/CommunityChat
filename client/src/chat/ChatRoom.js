@@ -9,30 +9,6 @@ export default class ChatRoom extends Component {
 		}
 	}
 
-	startCheckingTyping = ()=>{
-		console.log("Typing");
-		// this.typingInterval = setInterval(()=>{
-		// 	if((Date.now() - this.lastUpdateTime) > 300){
-		// 		this.setState({typingMessage:'Person is now typing'})
-		// 		this.stopCheckingTyping()
-		// 	}
-		// }, 300)
-
-		window.setInterval(function(){
-		  /// call your function here
-		}, 5000);
-
-		this.setState({typingMessage:'Person is now typing'})
-	}
-
-	stopCheckingTyping = ()=>{
-		console.log("Stop Typing");
-		if(this.typingInterval){
-			clearInterval(this.typingInterval)
-			this.props.sendTyping(false)
-		}
-	}
-
 	handleChange = (e) => {
 		const { typingMessage } = this.props 
 
@@ -48,7 +24,7 @@ export default class ChatRoom extends Component {
 		})
 
 		const message = messages.map((message) => {
-			return <li key={message.id}>{message.text}</li>
+			return <li key={message.id}><b>{message.author}</b> <i>{message.date}</i> : {message.text}</li>
 		})
 
 		return(

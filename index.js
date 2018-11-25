@@ -54,7 +54,7 @@ io.on('connection', function (socket) {
 			addNewUser(username, socket);
 		}
 
-		io.emit('newUserEnterChat', userList);
+		io.emit('newUserEnterChat', { username, userList} );
 	})
 
 	socket.on('userTyping', (username) => { 
