@@ -61,8 +61,8 @@ io.on('connection', function (socket) {
 		io.emit('activateTypingMessage', username)
 	})
 
-	socket.on('createMessage', (newMessage) => {
-		console.log('You have a new message:', newMessage)
+	socket.on('sendMessage', ({username, message}) => {
+		io.emit('newMessage', {username, message});
 
 	})
 

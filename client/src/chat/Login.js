@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
-// const socketURL = '10.0.0.4:5000'
+// const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
+const socketURL = '10.0.0.4:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -36,10 +36,6 @@ export default class Login extends Component {
 
 		socket.on('disconnect', () => {
 			console.log('Disconnected from server!')
-		})
-
-		socket.on('newMessage', (data) => {
-			console.log('New email:', data);
 		})
 
 		socket.on('newUserEnterChat', ({username, userList}) => {
@@ -74,9 +70,28 @@ export default class Login extends Component {
 
 			timeout = setTimeout(() => {
 				this.setState({typingMessage: ''})
-		    }, 3000);
+		    }, 1500);
 			
 
+		})
+
+		socket.on('newMessage', ({username, message}) => {
+			const sender = username;
+			const messageId = this.state.messages.length
+			const text = message
+			const now = new Date();
+			const date = now.toLocaleString();
+
+			const newMessage = {
+				id:messageId,
+				author: sender,
+				date: date,
+				text: text
+			}
+			const {messages} = this.state
+			messages.push(newMessage);
+
+			this.setState({messages})
 		})
 
 		this.setState({socket});
@@ -109,6 +124,7 @@ export default class Login extends Component {
 				{ user ? 
 					<ChatRoom 
 						socket={socket} 
+						user={user}
 						userList={userList} 
 						messages={messages} 
 						userTyping={userTyping}
