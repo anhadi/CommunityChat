@@ -12,7 +12,7 @@ export default class ChatRoom extends Component {
 
 	handleChange = (e) => {
 		const { typingMessage } = this.props 
-		const message = e.target.value.trim()
+		const message = e.target.value
 
 		if(!typingMessage) {
 			this.props.userTyping()

@@ -40,8 +40,8 @@ export default class LoginForm extends Component {
 		const { username, error } = this.state;
 
 		return(
-			<div>
-				<p>This is the LoginForm.js page</p>
+			<div className='loginForm'>
+				<p>Welcome to CommunityChat!</p>
 				<form onSubmit={this.handleSubmit}>
 					<h2>Username</h2>
 					<input
