@@ -67,11 +67,8 @@ io.on('connection', function (socket) {
 	})
 
 	socket.on('disconnect', () => {
-		console.log(userList)
-		console.log(`User has left the chat`);
-		removeUser(socket.id);
-		io.emit('userLeftChat', userList);
-		console.log(userList)
+		const username = removeUser(socket.id);
+		io.emit('userLeftChat', {userList, username});
 	})
 })
 
@@ -89,12 +86,16 @@ function isUser(userList, name) {
 }
 
 function removeUser(id) {
+	var remove;
 	userList = userList.filter( user => {
 		if( user.id !== id) {
 			return true
 		}
+		remove = user.username;
 		return false
 	})
+
+	return remove;
 }
 
 function addNewUser(username,socket) {

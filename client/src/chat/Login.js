@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
-// const socketURL = '10.0.0.4:5000'
+// const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
+const socketURL = '10.0.0.4:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -57,9 +57,25 @@ export default class Login extends Component {
 			this.setState({userList, messages})
 		})
 
-		socket.on('userLeftChat', (userList) => {
-			console.log('user has left the chat');
-			this.setState({userList})
+		socket.on('userLeftChat', ({userList, username}) => {
+			if(username) {
+				const messageId = this.state.messages.length
+				const text = username + ' has left the chat.'
+				const now = new Date();
+				const date = now.toLocaleString();
+
+				const leftMessage = {
+					id:messageId,
+					author: 'Admin',
+					date: date,
+					text: text
+				}
+
+				const {messages} = this.state
+				messages.push(leftMessage);
+
+				this.setState({userList, messages})
+			}
 		})
 
 		socket.on('activateTypingMessage', (username) => {
