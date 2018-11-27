@@ -33,6 +33,20 @@ export default class ChatRoom extends Component {
 		this.setState({message:''})
 	}
 
+	scrollToBottom = () => {
+	  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+	}
+
+	componentDidMount() {
+	  this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+	  this.scrollToBottom();
+	}
+
+
+
 	render(){
 		const { userList, messages, typingMessage } = this.props
 		const inputField = this.state.message
@@ -67,6 +81,9 @@ export default class ChatRoom extends Component {
 			            <ul>
 							{message}
 						</ul>
+						<div style={{ float:"left", clear: "both" }}
+				             ref={(el) => { this.messagesEnd = el; }}>
+				        </div>
 			          </div>
 			         </div>
 		          <div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
