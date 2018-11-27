@@ -1,26 +1,137 @@
-/*.App {
+html,
+body {
+  margin: 0;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-    background: rgb(170,75,107);
-    background: linear-gradient(90deg, rgba(170,75,107,1) 0%, rgba(248,131,121,1) 64%, rgba(253,227,214,1) 90%);
+#App {
+  font-family: sans-serif;
+
+  /* Give app full page to work with */
+  height: 100vh;
 }
 
-.loginForm{
-  border: 2px black solid;
-  border-radius: 25px;
-  background: rgba(253, 227, 214, 0.25);
-  width: 80vw;
-  max-height: 300px;
+#page-wrap {
+  text-align: center;
+
+  /* Prevent sidebar from showing a scrollbar on page */
+  overflow: auto;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+
+  /* Our sidebar item styling */
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+/* Change color on hover */
+.bm-item:hover {
+  color: white;
+}
+
+/* The rest copied directly from react-burger-menu docs */
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 20px;
+  height: 15px;
+  left: 6px;
+  top: 6px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 800px) {
+  .sidediv {
+    display: none;
+  }
+}
+
+.bm-burger-button { display: none; }
+@media (max-width: 800px) {
+  .bm-burger-button {
+    display: block;
+  }
+}
+
+.messagesDisplay {
+  position: relative;
+  border: black solid 2px;
+  height: 100vh;
+  padding-top: 75px;
+  flex: 1; 
+  padding: 0px;
+  background-color: #d1d1d1;
+}
+
+.messages{
+  position: relative;
+  border: purple 1px solid;
+}
+
+.messagesPadding{
   position: absolute;
-  padding: 50px;
-  margin: 50px;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+  top: 20px;
+  bottom: 127px;  
+  border: yellow solid 2px;
+  width: 100%; 
+  overflow: auto;
 }
-*/
+
+.messageInput{
+  border: red solid 2px;
+  height: 100px;
+  width: 100%; 
+  position: absolute;
+  bottom: 2px;
+  background-color: white;
+}
+
+.typingMessage{
+  position: absolute;
+  bottom: 110px;
+  border: green solid 1px;
+  height: 15px;
+}
+

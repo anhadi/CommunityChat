@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-// const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
-const socketURL = '10.0.0.4:5000'
+const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
+// const socketURL = '172.27.138.184:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -105,9 +105,12 @@ export default class Login extends Component {
 				text: text
 			}
 			const {messages} = this.state
-			messages.push(newMessage);
 
-			this.setState({messages})
+			if(message){
+				messages.push(newMessage);
+
+				this.setState({messages})
+			}
 		})
 
 		this.setState({socket});
@@ -136,7 +139,6 @@ export default class Login extends Component {
 		const userTyping = this.userTyping
 		return(
 			<div>
-				<p>This is the Login.js page</p>
 				{ user ? 
 					<ChatRoom 
 						socket={socket} 

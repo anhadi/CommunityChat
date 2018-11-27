@@ -9,6 +9,7 @@ export default class Home extends Component {
 				<ul>
 				<li><Link to='/login'>Login</Link></li>
 				<li><Link to='/chatRoom'>ChatRoom</Link></li>
+				<li><Link to='/TestSideBar'>TestSideBar</Link></li>
 				</ul>
 			</div>
 		)

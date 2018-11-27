@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Sidebar from './Sidebar';
+
 export default class ChatRoom extends Component {
 	constructor(props){
 		super(props)
@@ -37,25 +39,39 @@ export default class ChatRoom extends Component {
  		const user = userList.map((user) => {
 			return <li key={user.id}>{user.username}</li>
 		})
+		const secret ='CHATROOM'
+
 
 		const message = messages.map((message) => {
 			return <li key={message.id}><b>{message.author}</b> <i>{message.date}</i> : {message.text}</li>
 		})
 
 		return(
-			<div>
-				<p>This is the ChatRoom.js page</p>
-				<div>
-					<h3>Users</h3>
-					<ul>
-						{user}
-					</ul>
-					<hr />
-					<h3>Messages</h3>
-					<ul>
-						{message}
-						<div>{typingMessage ? typingMessage : null }</div>
-						<form onSubmit={this.handleSubmit}>
+			
+			<div style={{ display: "flex" }}>
+		        <Sidebar secret={secret} userList={userList}/>
+		        <div className='sidediv'
+		          style={{
+		            padding: "10px",
+		            width: "275px",
+		            height: "100vh",
+		            background: "#373a47"
+		          }}
+		        >
+		        hello sidediv
+		        </div>
+
+		        <div className='messagesDisplay'>
+			        <div className='messagesPadding'>
+			          <div className='messages'>
+			            <ul>
+							{message}
+						</ul>
+			          </div>
+			         </div>
+		          <div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
+		          <div className='messageInput'>
+		            <form onSubmit={this.handleSubmit}>
 							<input 
 								ref={(input) => {this.textInput = input} } 
 								type='text' 
@@ -66,9 +82,11 @@ export default class ChatRoom extends Component {
 								value={inputField}
 							/>
 						</form>
-					</ul>
-				</div>
-			</div>
+
+		          </div>
+
+		        </div>
+		      </div>
 		)
 	}
 }
