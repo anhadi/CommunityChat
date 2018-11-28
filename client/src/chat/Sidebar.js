@@ -10,16 +10,20 @@ export default class Sidebar extends Component {
   }
 
   render(){
-    // const {secret,userList} = this.props
-    // const user = userList.map((user) => {
-    //   return <li key={user.id}>{user.username}</li>
-    // })
+    const {userList, secret} = this.props
+    const user = userList.map((user) => {
+      return <li key={user.id}>{user.username}</li>
+    })
 
     return (
       <Menu>
-       
         <a className="menu-item" href="/burgers">
+        <ul>
+          {user}
+        </ul>
+
           Burgers
+          {secret}
         </a>
 
         <a className="menu-item" href="/pizzas">

@@ -72,7 +72,10 @@ export default class ChatRoom extends Component {
 		            background: "#373a47"
 		          }}
 		        >
-		        hello sidediv
+		        {secret}
+		        <ul>
+		        	{user}
+		        </ul>
 		        </div>
 
 		        <div className='messagesDisplay'>
