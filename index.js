@@ -26,7 +26,11 @@ io.on('connection', function (socket) {
 	socket.emit('newMessage', {
 		from: 'server',
 		text: 'this is a new message',
-		createdAt: 123
+		createdAt: 123,
+		user: {
+			username: "NAME",
+			id: 123
+		}
 	});
 
 	socket.on('verifyUser', (username, callback) => {
@@ -38,31 +42,27 @@ io.on('connection', function (socket) {
 			callback({error: 'ERROR: name already taken', userList});
 		} else {
 			console.log('name not in user list')
-			addNewUser(username, socket)
+			const newUser = addNewUser(username, socket)
 			console.log('these are the currently on users', userList)
-			callback({error: '', userList});
+			console.log('this is what you will send as newUser', newUser)
+			callback({error: '', userList, newUser});
 		}
 		
 	})
 
-	socket.on('newUser', (username) => {
+	socket.on('newUser', (user) => {
 		console.log('***** newUser was emitted succesfully from Login to Index.js')
 
-		const newUser = userList.filter((user) => user.username === userList)
-
-		if (newUser === []) {
-			addNewUser(username, socket);
-		}
-
-		io.emit('newUserEnterChat', { username, userList} );
+		io.emit('newUserEnterChat', { user, userList} );
 	})
 
-	socket.on('userTyping', (username) => { 
+	socket.on('userTyping', (user) => { 
+		const username = user.username;
 		io.emit('activateTypingMessage', username)
 	})
 
-	socket.on('sendMessage', ({username, message}) => {
-		io.emit('newMessage', {username, message});
+	socket.on('sendMessage', ({user, message}) => {
+		io.emit('newMessage', {user, message});
 
 	})
 
@@ -99,10 +99,13 @@ function removeUser(id) {
 }
 
 function addNewUser(username,socket) {
-	userList.push({
+	const user = {
 		username,
 		id: socket.id
-	});
+	}
+	userList.push(user);
+
+	return user;
 }
 
 

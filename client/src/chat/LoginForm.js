@@ -11,13 +11,13 @@ export default class LoginForm extends Component {
 		}
 	}
 
-	handleVerifyUser = ({error, userList}) => {
-		const { username } = this.state
+	handleVerifyUser = ({error, userList, newUser}) => {
+		const user = newUser
 		if(error){
 			this.setState({error})
 		} else {
 			this.setState({error,userList})
-			this.props.enterChat(username, userList)
+			this.props.enterChat(user, userList)
 		}
 	}
 
