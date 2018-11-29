@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import LoginForm from './LoginForm';
 import ChatRoom from './ChatRoom';
 
-// const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
-const socketURL = '192.168.1.3:5000'
+const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
+// const socketURL = '10.0.0.4:5000'
 
 export default class Login extends Component {
 	constructor(props){
@@ -16,6 +16,7 @@ export default class Login extends Component {
 			user: '',
 			userList: [],
 			messages: [], 
+			privateMessages: [],
 			typingMessage: ''
 		}
 	}
@@ -104,12 +105,26 @@ export default class Login extends Component {
 				date: date,
 				text: text
 			}
+
+			console.log(newMessage)
 			const {messages} = this.state
 
 			if(message){
 				messages.push(newMessage);
 
 				this.setState({messages})
+			}
+		})
+
+		socket.on('newPrivateMessage', (newChat) => {
+			console.log('hi! this is just a test')
+			console.log(newChat);
+			const {privateMessages} = this.state
+
+			if(newChat){
+				privateMessages.push(newChat)
+
+				this.setState({privateMessages})
 			}
 		})
 
@@ -135,7 +150,7 @@ export default class Login extends Component {
 	}
 
 	render(){
-		const { socket,user,userList,messages, typingMessage } = this.state
+		const { socket,user,userList,messages, typingMessage, privateMessages } = this.state
 		const userTyping = this.userTyping
 		return(
 			<div>
@@ -145,6 +160,7 @@ export default class Login extends Component {
 						user={user}
 						userList={userList} 
 						messages={messages} 
+						privateMessages={privateMessages}
 						userTyping={userTyping}
 						typingMessage={typingMessage}
 					/>

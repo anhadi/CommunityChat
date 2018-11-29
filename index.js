@@ -20,7 +20,7 @@ app.get('*', (req,res) =>{
 
 var userList = []
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
 	console.log('New user connected: ', socket.id)
 
 	socket.emit('newMessage', {
@@ -58,11 +58,29 @@ io.on('connection', function (socket) {
 
 	socket.on('userTyping', (user) => { 
 		const username = user.username;
-		io.emit('activateTypingMessage', username)
+		socket.broadcast.emit('activateTypingMessage', username)
 	})
 
 	socket.on('sendMessage', ({user, message}) => {
+		console.log(user.id, socket.id)
 		io.emit('newMessage', {user, message});
+
+	})
+
+	socket.on('privateMessage', ({receiver, sender, author, message, date,id}) => {
+		
+		const test='lskdfjlskdjfsldf'
+
+		const newChat = {
+			receiver, sender, author, message, date, id
+		}
+		console.log(newChat);	
+		io.to(receiver).emit('newPrivateMessage', newChat);
+		if(receiver !== sender){
+			socket.emit('newPrivateMessage', newChat)
+		}
+
+
 
 	})
 
