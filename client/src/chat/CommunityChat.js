@@ -7,7 +7,7 @@ import ChatRoom from './ChatRoom';
 const socketURL = 'https://agile-cliffs-98788.herokuapp.com/';
 // const socketURL = '10.0.0.4:5000'
 
-export default class Login extends Component {
+export default class CommunityChat extends Component {
 	constructor(props){
 		super(props);
 

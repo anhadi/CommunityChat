@@ -72,7 +72,7 @@ export default class PrivateMessagesDisplay extends Component {
 				return false
 			}
 		})
-		
+
 		message = message.map((message) => {
 			return <li key={message.id}><b>{message.author}</b> <i>{message.date}</i> : {message.message}</li>
 		})
@@ -105,8 +105,8 @@ export default class PrivateMessagesDisplay extends Component {
 							autoFocus={true}
 							value={inputField}
 							class="form-control" 
-							placeholder="Recipient's username" 
-							aria-label="Recipient's username" 
+							placeholder="Message" 
+							aria-label="Message" 
 							aria-describedby="basic-addon2" />
 						  <div class="input-group-append">
 						    <button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Send</button>

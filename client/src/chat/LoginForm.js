@@ -61,6 +61,8 @@ export default class LoginForm extends Component {
 							<button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Enter</button>
 						</div>
 					</div>
+					<div>{error ? error : null }</div>
+
 				</form>
 
 
