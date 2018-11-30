@@ -2,12 +2,6 @@ import React from "react";
 
 import Sidebar from './Sidebar';
 
-
-// Each logical "route" has two components, one for
-// the sidebar and one for the main area. We want to
-// render both of them in different places when the
-// path matches the current URL.
-
 function SidebarExample() {
   return (
       <div style={{ display: "flex" }}>

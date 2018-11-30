@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Sidebar from './Sidebar';
 import MessagesDisplay from './MessagesDisplay';
 import PrivateMessagesDisplay from './PrivateMessagesDisplay';
 
@@ -10,14 +9,18 @@ export default class ChatRoom extends Component {
 		super(props)
 
 		this.state={
-			view:''
+			view:'',
+			displaySidebar:true
 		}
 	}
 
 	privateView = (user) => {
-		const view = user.id
-		if (this.props.user.id !== view) {
-			this.setState({view});
+		const clicked = user.id
+		const { view } = this.state
+		if (view !== clicked) {
+			this.setState({view:clicked});
+		} else {
+			this.setState({view:''});
 		}
 	}
 
@@ -27,34 +30,44 @@ export default class ChatRoom extends Component {
 		})
 	}
 
+	displaySidebar = () => {
+		this.setState(prevState => ({
+			displaySidebar: !prevState.displaySidebar
+		}))
+		
+		console.log('you clicked button! displaySidebar is now true')
+	}
+
 	render(){
 		const { userList, messages, typingMessage, socket, user, privateMessages } = this.props
-		const { view } = this.state
- 		const userLink = userList.map((user) => {
-			return <li key={user.id} onClick={() => this.privateView(user)}>{user.username} {user.id}</li>
+		const { view, displaySidebar } = this.state
+		const userLinks = userList.filter((userItem) => {
+			if(userItem.id !== user.id){
+				return true
+			} else {
+				return false
+			}
 		})
-		const mainChatLi = <li onClick={this.publicView}>Community Chat</li>
+ 		const userLink = userLinks.map((user) => {
+			return <div className={view===user.id ? "userDiv userDivActive border-right-0 rounded p-3 my-2 mx-4 text-right text-warning border border-info" : "userDiv rounded p-3 my-2 text-right border border-info"} key={user.id} onClick={() => this.privateView(user)}>{user.username}</div>
+		})
+		const mainChatLi = <div className="p-3 h3" onClick={this.publicView}>Community<br /> Chat</div>
 
 		return(
-			
-			<div style={{ display: "flex" }}>
-		        <Sidebar secret={mainChatLi} userList={userList}/>
-		        <div className='sidediv'
-		          style={{
-		            padding: "10px",
-		            width: "275px",
-		            height: "100vh",
-		            background: "#373a47"
-		          }}
-		        >
-		        {mainChatLi}
-		        <ul>
-
-		        	{userLink}
-		        </ul>
+			<div className="d-flex">				
+			  <div className={displaySidebar ? "sidediv text-truncate maindiv d-md-flex d p-4" : "d-none"}>
+			  	
+			  	<div className="d-flex flex-column">
+			  		{mainChatLi}
+			  		{userLink}
 		        </div>
+			  </div>
 
-		        {view ? 
+				
+			   <div className="maindiv p-4 flex-fill border border-info border-left-0">
+			  	<div className="d-inline" onClick={this.displaySidebar}>|+| </div>
+			 	<span>Flex item</span>
+			 	{view ? 
 		        	<PrivateMessagesDisplay 
 		        		privateMessages={privateMessages}
 			        	typingMessage={typingMessage}
@@ -70,9 +83,8 @@ export default class ChatRoom extends Component {
 			        	user={user}
 	        		/> 
 	        	}
-		        
-		        
-		      </div>
+			  </div>
+			</div>
 		)
 	}
 }
