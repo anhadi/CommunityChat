@@ -40,21 +40,33 @@ export default class LoginForm extends Component {
 		const { username, error } = this.state;
 
 		return(
+			<div class="loginFormContainer d-flex flex-column align-items-center justify-content-center">
 			<div className='loginForm'>
-				<p>Welcome to CommunityChat!</p>
+				<p className='h2'>Welcome to CommunityChat!</p>
 				<form onSubmit={this.handleSubmit}>
-					<h2>Username</h2>
-					<input
-						ref={(input) => {this.textInput = input} } 
-						type='text' 
-						id='usernameField'
-						onChange={this.handleChange}
-						autoComplete='off'
-						autoFocus={true}
+					<div class="input-group my-1">
+						<input 
+							type="text" 
+							ref={(input) => {this.textInput = input} } 
+							id='usernameField'
+							onChange={this.handleChange}
+							autoComplete='off'
+							autoFocus={true}
+							class="form-control" 
+							placeholder="Username" 
+							aria-label="Username" 
+							aria-describedby="basic-addon2"
 						/>
-					<div>{error ? error : null }</div>
-					<div>{username}</div>
+						<div class="input-group-append">
+							<button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Enter</button>
+						</div>
+					</div>
 				</form>
+
+
+
+
+			</div>
 			</div>
 		)
 	}

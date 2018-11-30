@@ -3,6 +3,16 @@ body {
   margin: 0;
 }
 
+.loginFormContainer{
+  height: 100vh;
+}
+
+.loginForm{
+  max-width: 450px;
+  border: black solid 2px;
+  padding: 25px;
+}
+
 .sidediv{
   padding: 10px;
   min-width: 275px;
@@ -10,6 +20,7 @@ body {
   height: 100vh;
   background: #373a47;
   color: white;
+  overflow: auto;
 }
 
 .maindiv{

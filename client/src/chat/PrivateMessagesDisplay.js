@@ -109,7 +109,7 @@ export default class PrivateMessagesDisplay extends Component {
 							aria-label="Recipient's username" 
 							aria-describedby="basic-addon2" />
 						  <div class="input-group-append">
-						    <button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Button</button>
+						    <button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Send</button>
 						  </div>
 						</div>
 					</form>
