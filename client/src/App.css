@@ -3,88 +3,10 @@ body {
   margin: 0;
 }
 
-#App {
-  font-family: sans-serif;
-
-  /* Give app full page to work with */
-  height: 100vh;
-}
-
-#page-wrap {
-  text-align: center;
-
-  /* Prevent sidebar from showing a scrollbar on page */
-  overflow: auto;
-}
-
-/* Individual item */
-.bm-item {
-  display: inline-block;
-
-  /* Our sidebar item styling */
-  text-decoration: none;
-  margin-bottom: 10px;
-  color: #d1d1d1;
-  transition: color 0.2s;
-}
-
-/* Change color on hover */
-.bm-item:hover {
-  color: white;
-}
-
-/* The rest copied directly from react-burger-menu docs */
-
-/* Position and sizing of burger button */
-.bm-burger-button {
-  position: fixed;
-  width: 20px;
-  height: 15px;
-  left: 6px;
-  top: 6px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #373a47;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 24px;
-  width: 24px;
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/* General sidebar styles */
-.bm-menu {
-  background: #373a47;
-  padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
-}
-
 .sidediv{
   padding: 10px;
-  width: 275px;
+  min-width: 275px;
+  max-width: 275px;
   height: 100vh;
   background: #373a47;
   color: white;
@@ -94,54 +16,51 @@ body {
   padding: 20px;
 }
 
-.bm-burger-button { display: none; }
-@media (max-width: 800px) {
-  .bm-burger-button {
-    display: block;
-  }
-}
-
 .messagesDisplay {
   position: relative;
   border: black solid 2px;
-  height: 100vh;
+  height: calc(100vh - 90px);
   padding-top: 75px;
-  flex: 1; 
   padding: 0px;
-  background-color: #d1d1d1;
 }
 
 .messages{
   position: relative;
-  border: purple 1px solid;
+  max-height: calc(100vh - 175px);
+  overflow: auto;
 }
 
-.messagesPadding{
-  position: absolute;
-  top: 20px;
-  bottom: 127px;  
-  border: yellow solid 2px;
+.messagesPadding{ 
+  padding: 10px;
+  height: calc(100vh - 90px);
   width: 100%; 
   overflow: auto;
 }
 
 .messageInput{
-  border: red solid 2px;
-  height: 100px;
+  height: 50px;
   width: 100%; 
   position: absolute;
   bottom: 2px;
   background-color: white;
 }
 
-.typingMessage{
-  position: absolute;
-  bottom: 110px;
-  border: green solid 1px;
-  height: 15px;
+form .form-control:focus{
+  border-color: #ced4da;
+  box-shadow: none;
 }
 
-li { cursor: pointer; }
+.btn-outline-secondary{
+  background-color: #2ba6cb;
+  color: white;
+}
+
+.typingMessage{
+  position: absolute;
+  bottom: 63px;
+  left: 8px;
+  height: 15px;
+}
 
 .userDiv {
   text-overflow: ellipsis;
@@ -150,8 +69,10 @@ li { cursor: pointer; }
   max-width: 230px;
   width: 230px;
   background-color: #2ba6cb;
+  cursor: pointer;
 }
 
 .userDivActive{
   background-color: white;
+  text-align: left;
 }

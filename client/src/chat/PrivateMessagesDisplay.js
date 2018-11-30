@@ -65,10 +65,6 @@ export default class PrivateMessagesDisplay extends Component {
 		const { privateMessages, typingMessage, view, user } = this.props
 		const inputField = this.state.message
 
-		// const message = privateMessages.map((message) => {
-		// 	return <li key={message.id}><b>{message.author}</b> <i>{message.date}</i> : {message.message}</li>
-		// })
-
 		var message = privateMessages.filter((message) => {
 			if(message.sender === view || (message.receiver === view && message.sender === user.id)){
 				return true
@@ -76,46 +72,49 @@ export default class PrivateMessagesDisplay extends Component {
 				return false
 			}
 		})
-
-
+		
 		message = message.map((message) => {
 			return <li key={message.id}><b>{message.author}</b> <i>{message.date}</i> : {message.message}</li>
 		})
 
-		// const message = privateMessages.filter((message) => {
-		// 	return message.sender === view
-		// })
-
 		return(
-			<div className='messagesDisplay'>
-			        <div className='messagesPadding'>
-			          <div className='messages'>
-			          	THIS MESSAGES DIV IS FROM PrivateMessagesDisplay {view}
-			            <ul>
+			<div className='messagesDisplay d-flex'>
+				<div className='messagesPadding'>
+					<div className='messages'>
+						<ul>
 							{message}
 						</ul>
 						<div style={{ float:"left", clear: "both" }}
 				             ref={(el) => { this.messagesEnd = el; }}>
 				        </div>
-			          </div>
-			         </div>
-		          <div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
-		          <div className='messageInput'>
-		            <form onSubmit={this.handleSubmit}>
-							<input 
-								ref={(input) => {this.textInput = input} } 
-								type='text' 
-								id='messageField'
-								onChange={this.handleChange}
-								autoComplete='off'
-								autoFocus={true}
-								value={inputField}
-							/>
-						</form>
+					</div>
+				</div>
 
-		          </div>
+				<div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
 
+			    <div className='messageInput'>
+
+					<form onSubmit={this.handleSubmit}>
+					    <div class="input-group my-1">
+						  <input 
+							type="text" 
+							ref={(input) => {this.textInput = input} } 
+							id='messageField'
+							onChange={this.handleChange}
+							autoComplete='off'
+							autoFocus={true}
+							value={inputField}
+							class="form-control" 
+							placeholder="Recipient's username" 
+							aria-label="Recipient's username" 
+							aria-describedby="basic-addon2" />
+						  <div class="input-group-append">
+						    <button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Button</button>
+						  </div>
+						</div>
+					</form>
 		        </div>
-			)
+
+		     </div>			)
 	} 
 }

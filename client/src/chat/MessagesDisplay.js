@@ -9,6 +9,18 @@ export default class MessagesDisplay extends Component {
 		}
 	}
 
+	scrollToBottom = () => {
+	  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+	}
+
+	componentDidMount() {
+	  this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+	  this.scrollToBottom();
+	}
+
 	handleChange = (e) => {
 		const { typingMessage } = this.props 
 		const message = e.target.value
@@ -29,18 +41,6 @@ export default class MessagesDisplay extends Component {
 		this.setState({message:''})
 	}
 
-	scrollToBottom = () => {
-	  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-	}
-
-	componentDidMount() {
-	  this.scrollToBottom();
-	}
-
-	componentDidUpdate() {
-	  this.scrollToBottom();
-	}
-
 	userTyping = () => {
 		const { user, socket } = this.props		
 		socket.emit('userTyping', user);
@@ -56,34 +56,44 @@ export default class MessagesDisplay extends Component {
 		})
 
 		return(
-			<div className='messagesDisplay'>
-			        <div className='messagesPadding'>
-			          <div className='messages'>
-			            <ul>
+			<div className='messagesDisplay d-flex'>
+				<div className='messagesPadding'>
+					<div className='messages'>
+						<ul>
 							{message}
 						</ul>
 						<div style={{ float:"left", clear: "both" }}
 				             ref={(el) => { this.messagesEnd = el; }}>
 				        </div>
-			          </div>
-			         </div>
-		          <div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
-		          <div className='messageInput'>
-		            <form onSubmit={this.handleSubmit}>
-							<input 
-								ref={(input) => {this.textInput = input} } 
-								type='text' 
-								id='messageField'
-								onChange={this.handleChange}
-								autoComplete='off'
-								autoFocus={true}
-								value={inputField}
-							/>
-						</form>
+					</div>
+				</div>
 
-		          </div>
+				<div className='typingMessage'>{typingMessage ? typingMessage : null }</div>
 
+			    <div className='messageInput'>
+
+					<form onSubmit={this.handleSubmit}>
+					    <div class="input-group my-1">
+						  <input 
+							type="text" 
+							ref={(input) => {this.textInput = input} } 
+							id='messageField'
+							onChange={this.handleChange}
+							autoComplete='off'
+							autoFocus={true}
+							value={inputField}
+							class="form-control" 
+							placeholder="Recipient's username" 
+							aria-label="Recipient's username" 
+							aria-describedby="basic-addon2" />
+						  <div class="input-group-append">
+						    <button onSubmit={this.handleSubmit} onClick={this.handleSubmit} class="btn btn-outline-secondary" type="button">Button</button>
+						  </div>
+						</div>
+					</form>
 		        </div>
+
+		     </div>
 			)
 	} 
 }

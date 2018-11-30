@@ -63,10 +63,8 @@ export default class ChatRoom extends Component {
 		        </div>
 			  </div>
 
-				
-			   <div className="maindiv p-4 flex-fill border border-info border-left-0">
-			  	<div className="d-inline" onClick={this.displaySidebar}>|+| </div>
-			 	<span>Flex item</span>
+			  <div className="maindiv p-4 flex-fill">
+			  	<div className="d-inline" onClick={this.displaySidebar}><i class="fa fa-bars" style={{fontSize: "28px"}}></i> </div>
 			 	{view ? 
 		        	<PrivateMessagesDisplay 
 		        		privateMessages={privateMessages}
@@ -84,6 +82,8 @@ export default class ChatRoom extends Component {
 	        		/> 
 	        	}
 			  </div>
+
+				
 			</div>
 		)
 	}
