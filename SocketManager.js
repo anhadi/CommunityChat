@@ -8,7 +8,11 @@ module.exports = function (socket) {
 	socket.emit('newMessage', {
 		from: 'server',
 		text: 'this is a new message',
-		createdAt: 123
+		createdAt: 123,
+		user: {
+			username: "NAME",
+			id: 123
+		}
 	});
 
 	socket.on('verifyUser', (username, callback) => {
@@ -20,31 +24,51 @@ module.exports = function (socket) {
 			callback({error: 'ERROR: name already taken', userList});
 		} else {
 			console.log('name not in user list')
-			userList.push({
-				username,
-				id: socket.id
-			});
+			const newUser = addNewUser(username, socket)
 			console.log('these are the currently on users', userList)
-			callback({error: '', userList});
+			console.log('this is what you will send as newUser', newUser)
+			callback({error: '', userList, newUser});
 		}
 		
 	})
 
 	socket.on('newUser', (user) => {
-		console.log('***** newUser was emitted succesfully from Login to SocketManager')
-		io.emit('newUserEnterChat', user);
+		console.log('***** newUser was emitted succesfully from Login to Index.js')
+
+		io.emit('newUserEnterChat', { user, userList} );
 	})
 
-	socket.on('createMessage', (newMessage) => {
-		console.log('You have a new message:', newMessage)
+	socket.on('userTyping', (user) => { 
+		const username = user.username;
+		socket.broadcast.emit('activateTypingMessage', username)
+	})
+
+	socket.on('sendMessage', ({user, message}) => {
+		console.log(user.id, socket.id)
+		io.emit('newMessage', {user, message});
+
+	})
+
+	socket.on('privateMessage', ({receiver, sender, author, message, date,id}) => {
+		
+		const test='lskdfjlskdjfsldf'
+
+		const newChat = {
+			receiver, sender, author, message, date, id
+		}
+		console.log(newChat);	
+		io.to(receiver).emit('newPrivateMessage', newChat);
+		if(receiver !== sender){
+			socket.emit('newPrivateMessage', newChat)
+		}
+
+
 
 	})
 
 	socket.on('disconnect', () => {
-		console.log(userList)
-		console.log(`User has left the chat`);
-		removeUser(socket.id);
-		console.log(userList)
+		const username = removeUser(socket.id);
+		io.emit('userLeftChat', {userList, username});
 	})
 }
 
@@ -62,18 +86,27 @@ function isUser(userList, name) {
 }
 
 function removeUser(id) {
+	var remove;
 	userList = userList.filter( user => {
 		if( user.id !== id) {
 			return true
 		}
+		remove = user.username;
 		return false
 	})
+
+	return remove;
 }
 
+function addNewUser(username,socket) {
+	const user = {
+		username,
+		id: socket.id
+	}
+	userList.push(user);
 
-
-
-
+	return user;
+}
 
 
 
